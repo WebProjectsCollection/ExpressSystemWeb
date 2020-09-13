@@ -1,0 +1,57 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <a href="javascript:;">
+        <span class="menu-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+        <h1>
+          <img src="../assets/logo.png" alt="logo">
+        </h1>
+      </a>
+    </div>
+    <ul id="ul-menu" nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item routerLink="/app" nzMatchRouter nzMatchRouterExact>
+        <i nz-icon nzType="home"></i>
+        <span>Home</span>
+      </li>
+      <li nz-submenu *ngFor="let topMenu of menuList" [hidden]="!topMenu.isShow" nzOpen nzTitle="{{topMenu.menuText}}" nzIcon="{{topMenu.icon}}">
+        <ul>
+          <li nz-menu-item nzMatchRouter *ngFor="let subMenu of topMenu.children" [hidden]="!subMenu.isShow">
+            <a *ngIf="!subMenu.routerLink">{{subMenu.menuText}}</a>
+            <a *ngIf="subMenu.routerLink" routerLink="{{subMenu.routerLink}}">{{subMenu.menuText}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header id="header">
+      <div class="app-header">
+        <span class="header-index-action">
+          <span style="margin:20px 6px 20px 0">
+            <i nz-icon nzType="environment" nzTheme="twotone" style="font-size: 14px; vertical-align: middle;"></i>
+          </span>
+          <span style="vertical-align: middle;font-family: 'Microsoft YaHei'">{{siteName}}</span>
+        </span>
+        <span class="header-index-action" nz-dropdown [nzDropdownMenu]="menu">
+          <span style="margin:20px 8px 20px 0">
+            <nz-avatar nzIcon="user" [nzSize]="24" style="background-color:#87d068;"></nz-avatar>
+          </span>
+          <span style="vertical-align: middle;font-family: 'Microsoft YaHei'">{{userName}}</span>
+        </span>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="logout()">退出系统</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </nz-header>
+    <nz-content id="container">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

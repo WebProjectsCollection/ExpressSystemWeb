@@ -1,0 +1,58 @@
+<form nz-form [formGroup]="validateForm" nzLayout="inline">
+    <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="24">
+            <nz-form-item nzFlex>
+                <nz-form-label>员工工号</nz-form-label>
+                <nz-form-control>
+                    <input nz-input style="width: 140px;" formControlName="employeeId" />
+                </nz-form-control>
+                <nz-form-label style="margin-left: 10px;">是否在职</nz-form-label>
+                <nz-form-control>
+                    <nz-select style="width: 90px;" nzAllowClear formControlName="isActive" nzPlaceHolder="请选择">
+                        <nz-option nzLabel="是" nzValue="1"></nz-option>
+                        <nz-option nzLabel="否" nzValue="0"></nz-option>
+                      </nz-select>
+                </nz-form-control>                
+                <nz-form-label style="margin-left: 10px;">离职时间</nz-form-label>
+                <nz-form-control>
+                    <nz-range-picker formControlName="leaveTime" style="width: 220px;"></nz-range-picker>
+                </nz-form-control>
+                <nz-form-control>
+                    <button type="button" nz-button style="margin-left: 10px;" nzType="primary"
+                        (click)="searchData(true)">查询</button>
+                    <button style="margin-left: 20px;" (click)="export()" nz-button><i nz-icon nzType="download"></i><span>下载</span></button>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</form>
+<div class="search-result-list">
+    <nz-table #borderedTable nzBordered [nzData]="recordList" nzShowSizeChanger [nzFrontPagination]="false"
+        [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>工号</th>
+                <th>部门</th>
+                <th>入职时间</th>
+                <th>离职时间</th>
+                <th>成本中心</th>
+                <th>应扣款</th>
+                <th>明细</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of borderedTable.data">
+                <td>{{data.chineseName}}</td>
+                <td>{{data.employeeID}}</td>
+                <td>{{data.department}}</td>
+                <td>{{data.inDate}}</td>
+                <td>{{data.leaveDate}}</td>
+                <td>{{data.costcenter}}</td>
+                <td>{{data.debt}}</td>
+                <td>{{data.details}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

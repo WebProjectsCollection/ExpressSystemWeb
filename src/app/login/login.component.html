@@ -1,0 +1,45 @@
+<nz-layout>
+  <nz-header>
+    <h2 style="text-align: center;margin-top: 100px;"><span>Uniform Management System</span></h2>
+  </nz-header>
+  <nz-layout>
+    <nz-content>
+      <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your NTID!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="userName" placeholder="NTID" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please select your site!">
+            <nz-input-group nzPrefixIcon="environment">
+              <nz-select id="site" formControlName="site" nzPlaceHolder="Select a site"
+                (ngModelChange)="changeSite($event)">
+                <nz-option *ngFor="let option of siteList" [nzLabel]="option.siteName" [nzValue]="option.siteID">
+                </nz-option>
+              </nz-select>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <label nz-checkbox formControlName="remember">
+              <span>Remember me</span>
+            </label>
+            <button nz-button class="login-form-button" [nzType]="'primary'" (click)="login(loginForm.valid);">Log
+              in</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

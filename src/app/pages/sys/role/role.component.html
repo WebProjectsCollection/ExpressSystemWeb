@@ -1,0 +1,30 @@
+<!-- <button style="margin-left: 0;" nz-button [nzType]="'primary'">添加角色</button> -->
+<div class="search-result-list">
+    <nz-table #borderedTable nzBordered [nzData]="dataSet" nzSize="middle">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>角色名称</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of borderedTable.data;let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ data.roleName }}</td>
+                <td>
+                    <!-- <a>编辑</a>
+                  <nz-divider nzType="vertical"></nz-divider> -->
+                    <a (click)="grant(data)">分配权限</a>
+                    <!-- <nz-divider nzType="vertical"></nz-divider>
+                  <a>删除</a> -->
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="菜单权限" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" nzOkText="保存">
+    <nz-tree #nzTreeComponent [nzData]="nodes" nzCheckable (nzCheckBoxChange)="nzCheck($event)">
+    </nz-tree>
+</nz-modal>

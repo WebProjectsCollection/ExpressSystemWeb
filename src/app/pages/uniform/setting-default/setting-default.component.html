@@ -1,0 +1,40 @@
+<form nz-form>
+    <nz-divider nzText="工服领取" nzOrientation="left"></nz-divider>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5">默认工服季节</nz-form-label>
+        <nz-form-control [nzSpan]="12" [nzValidateStatus]="defaultTypeOK?'success':'error'" nzErrorTip="请选择默认工服类型">
+            <nz-select name="select-type" [(ngModel)]="defaultType">
+                <nz-option *ngFor="let item of uniformTypes" [nzValue]="item.season"
+                    [nzLabel]="item.season"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5">默认领取数量</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-input-number name="input-number" [nzPrecision]="0" [nzMin]="0" [nzStep]="1" [(ngModel)]="defaultNumber"
+                style="width:100%">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-divider nzText="HR收件地址" nzOrientation="left"></nz-divider>
+
+    <nz-form-item>
+        <nz-form-label [nzSpan]="5">
+            <span>Email
+                <i nz-icon nz-tooltip [nzTitle]="emailTip" nzType="question-circle" nzTheme="outline"></i>
+            </span>
+        </nz-form-label>
+        <nz-form-control [nzSpan]="12" [nzValidateStatus]="defaultEmailOK?'success':'error'" nzErrorTip="请输入正确格式的邮箱地址">
+            <nz-select name="input-email" [(ngModel)]="defaultEmails" nzMode="tags" [nzTokenSeparators]="[',']"
+                nzPlaceHolder="输入邮箱并单击回车键" (ngModelChange)="modelChange()">
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<div nz-row>
+    <div nz-col nzSpan="5"></div>
+    <div nz-col nzSpan="12"><button nz-button class="fr" (click)="saveDefaultData()" nzType="primary">保存</button>
+    </div>
+</div>

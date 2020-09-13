@@ -1,0 +1,64 @@
+<button nz-button (click)="addRow()" nzType="primary">添加</button>
+<nz-alert nzType="info" [nzMessage]="infoMsg" nzShowIcon style="margin-bottom: 10px;"></nz-alert>
+<nz-table #editRowTable nzBordered [nzData]="listOfData" [nzFrontPagination]="false">
+    <thead>
+        <tr>
+            <th nzWidth="15%">季节</th>
+            <th nzWidth="20%">款式</th>
+            <th nzWidth="20%">价格(元/套)</th>
+            <th nzWidth="20%">库存</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+            <td>
+                <ng-container *ngIf="!editCache[data.id].edit; else seasonInputTpl">
+                    {{ data.season }}
+                </ng-container>
+                <ng-template #seasonInputTpl>
+                    <input type="text" nz-input [(ngModel)]="editCache[data.id].data.season" />
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="!editCache[data.id].edit; else styleInputTpl">
+                    {{ data.style }}
+                </ng-container>
+                <ng-template #styleInputTpl>
+                    <input type="text" nz-input [(ngModel)]="editCache[data.id].data.style" />
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="!editCache[data.id].edit; else priceInputTpl">
+                    {{ data.price }}
+                </ng-container>
+                <ng-template #priceInputTpl>
+                    <nz-input-number [(ngModel)]="editCache[data.id].data.price" [nzPrecision]="2" [nzMin]="0"
+                        [nzStep]="1"></nz-input-number>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="!editCache[data.id].edit; else stockInputTpl">
+                    {{ data.stock }}
+                </ng-container>
+                <ng-template #stockInputTpl>
+                    <nz-input-number [(ngModel)]="editCache[data.id].data.stock" [nzPrecision]="0" [nzMin]="0"
+                        [nzStep]="1">
+                    </nz-input-number>
+                </ng-template>
+            </td>
+            <td>
+                <div class="editable-row-operations">
+                    <ng-container *ngIf="!editCache[data.id].edit; else saveTpl">
+                        <a (click)="startEdit(data.id)">修改</a>
+                    </ng-container>
+                    <ng-template #saveTpl>
+                        <a (click)="saveEdit(data.id)">确定</a>
+                    </ng-template>
+                    <a nz-popconfirm nzTitle="确认删除?" (nzOnConfirm)="deleteRow(data.id)">删除</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+<button nz-button class="fr mt-10" (click)="saveUniformTypeData()" nzType="primary">保存</button>

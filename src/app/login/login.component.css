@@ -1,0 +1,25 @@
+.login-form {
+  max-width: 300px;
+  margin: auto;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+nz-header, nz-footer, nz-content {
+  background: white;
+  color: #fff;
+}
+
+nz-header {
+  height: auto;
+}
+      
+:host /deep/ .ant-select-selection__rendered{
+  margin-left: 30px;
+}

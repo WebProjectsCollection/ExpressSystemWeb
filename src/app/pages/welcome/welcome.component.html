@@ -1,0 +1,104 @@
+<div style="margin:-48px -48px 0px;background: white;">
+    <nz-page-header>
+        <!--avatar-->
+        <nz-avatar [nzSize]="64" nz-page-header-avatar nzSrc="../../../assets/header.png">
+        </nz-avatar>
+
+        <!--title-->
+        <nz-page-header-title>
+            <div>你好，{{userName}}，祝你开心每一天！</div>
+            <div class="header-subtitle">
+                {{department}} - {{roleName}}
+            </div>
+        </nz-page-header-title>
+    </nz-page-header>
+</div>
+<div class="body-content ant-row">
+    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24 ant-col-xl-24"
+        style="padding-left: 12px; padding-right: 12px;">
+        <nz-card style="margin-bottom: 24px;" nzTitle="员工信息" [nzExtra]="uploadTemplate">
+            <nz-table #employeeTable nzBordered [nzData]="employeeSummary" [nzFrontPagination]="false">
+                <thead>
+                    <tr>
+                        <th>在职员工总人数</th>
+                        <th>今日新增人数</th>
+                        <th>今日离职人数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of employeeTable.data">
+                        <td>{{data.total}} 人</td>
+                        <td>{{data.addSum}} 人</td> 
+                        <td>{{data.leaveSum}} 人</td> 
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+        <ng-template #uploadTemplate>
+            <button nz-button nzType="primary" nzShape="round" (click)="showUploader()">
+                <i nz-icon nzType="upload"></i>上传员工信息
+            </button>
+        </ng-template>        
+    </div>
+    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24 ant-col-xl-8"
+        style="padding-left: 12px; padding-right: 12px;">
+
+        <nz-card style="margin-bottom: 24px;" nzTitle="服装单价">
+            <nz-table #uniformtypetable nzBordered [nzData]="listOfData" [nzFrontPagination]="false">
+                <thead>
+                    <tr>
+                        <th>款式</th>
+                        <th>价格(元/套)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of uniformtypetable.data">
+                        <td>{{data.style}}</td>
+                        <td>{{data.price}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+    <div class="ant-col ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-24 ant-col-xl-16"
+        style="padding-left: 12px; padding-right: 12px;">
+        <nz-card style="margin-bottom: 24px;" [nzTitle]="'工服领退记录(' + startTime + '~' + endTime + ')'">
+            <nz-table #summarytable nzBordered [nzData]="uniformsSummary" [nzFrontPagination]="false">
+                <thead>
+                    <tr>
+                        <th>类型</th>
+                        <th>领取数</th>
+                        <th>退还数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of summarytable.data">
+                        <td>{{data.uniformStyle}}</td>
+                        <td>{{data.outSummary}}</td>
+                        <td>{{data.inSummary}}</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </nz-card>
+    </div>
+</div>
+<nz-modal [(nzVisible)]="uploadIsVisible" nzTitle="导入员工信息" [nzOkText]="null" (nzOnCancel)="handleCancel()">
+    <button nz-button style="margin-bottom: 20px;" (click)="downloadTemplate()" nzType="link"><i nz-icon nzType="download"></i>点击下载 [ 工衣系统-员工信息导入模板.xls ]</button>
+    <nz-upload
+      nzType="drag"
+      [(nzFileList)]="fileList"
+      [nzMultiple]="false"
+      [nzAction]="uploadApi"
+      (nzChange)="handleChange($event)"
+      nzName="file"
+      nzAccept=".xls,.xlsx"
+    >
+      <p class="ant-upload-drag-icon">
+        <i nz-icon nzType="inbox"></i>
+      </p>
+      <p class="ant-upload-text">单击或将文件拖到该区域以上传</p>
+      <p class="ant-upload-hint">
+        请选择正确格式的员工数据文件
+      </p>
+    </nz-upload>
+</nz-modal>

@@ -1,0 +1,84 @@
+<form nz-form [formGroup]="validateForm" nzLayout="inline">
+    <div nz-row [nzGutter]="24">
+        <div nz-col [nzSpan]="24">
+            <nz-form-item nzFlex>
+                <nz-form-label>部门管理员工号</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="employeeId" />
+                </nz-form-control>
+                <nz-form-control>
+                    <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
+                        (click)="searchData(true)">查询</button>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</form>
+<div class="search-result-list">
+    <nz-table #borderedTable nzBordered [nzData]="recordList">
+        <thead>
+            <tr>
+                <th>管理员姓名</th>
+                <th>管理员工号</th>
+                <th>部门</th>
+                <th>成本中心</th>
+                <th>工衣类型</th>
+                <th>持有总数</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of borderedTable.data">
+                <td>{{data.chineseName}}</td>
+                <td>{{data.employeeID}}</td>
+                <td>{{data.department}}</td>
+                <td>{{data.costcenter}}</td>
+                <td>{{data.uniformStyle}}</td>
+                <td>{{data.total}}</td>
+                <td><button nz-button nzType="link" (click)="showModal(data)"><i nz-icon nzType="sync"></i>移交工服</button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="移交工服" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <nz-divider nzText="From" nzOrientation="left" style="margin-top: 0px;"></nz-divider>
+    <nz-table nzBordered [nzShowPagination]="false" [nzData]="recordList">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>工号</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{fromUser.chineseName}}</td>
+                <td>{{fromUser.employeeID}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <nz-divider nzText="To" nzOrientation="left"></nz-divider>
+    <ng-template #mgBeforeButton>
+        <span>管理员工号：</span>
+    </ng-template>
+    <nz-input-group nzSearch [nzAddOnBefore]="mgBeforeButton" [nzAddOnAfter]="mgSuffixButton">
+        <input type="text" nz-input [(ngModel)]="toUserEmployeeId" placeholder="请输入管理员工号" />
+    </nz-input-group>
+    <ng-template #mgSuffixButton>
+        <button nz-button nzType="primary" nzSearch (click)="getToUserInfo()">查找</button>
+    </ng-template>
+    <nz-table nzBordered [nzShowPagination]="false" [nzData]="recordList" style="margin-top: 5px;">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>工号</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{toUser.chineseName}}</td>
+                <td>{{toUser.employeeID}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-modal>
