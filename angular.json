@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UniformMS": {
+    "ExpressSystemWeb": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/UniformMS",
+            "outputPath": "dist/ExpressSystemWeb",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -86,18 +86,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "UniformMS:build"
+            "browserTarget": "ExpressSystemWeb:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "UniformMS:build:production"
+              "browserTarget": "ExpressSystemWeb:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UniformMS:build"
+            "browserTarget": "ExpressSystemWeb:build"
           }
         },
         "test": {
@@ -135,16 +135,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "UniformMS:serve"
+            "devServerTarget": "ExpressSystemWeb:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "UniformMS:serve:production"
+              "devServerTarget": "ExpressSystemWeb:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "UniformMS"
+  "defaultProject": "ExpressSystemWeb"
 }

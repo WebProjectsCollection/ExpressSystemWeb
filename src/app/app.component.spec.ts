@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'UniformMS'`, () => {
+  it(`should have as title 'ExpressSystemWeb'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('UniformMS');
+    expect(app.title).toEqual('ExpressSystemWeb');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('UniformMS app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('ExpressSystemWeb app is running!');
   });
 });
