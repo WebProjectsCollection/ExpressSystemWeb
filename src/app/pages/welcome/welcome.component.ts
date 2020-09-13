@@ -42,26 +42,26 @@ export class WelcomeComponent implements OnInit {
   }
 
   loadHomeData() {
-    this.httpService.get('/api/home?siteId=' + this.siteId, res => {
-      if (res.code == 100) {
-        this.uniformsSummary = res.data.uniforms;
-        this.employeeSummary = res.data.employees;
-        this.startTime = Utils.dateFormat(new Date(res.data.startTime), 'yyy/MM/dd');
-        this.endTime = Utils.dateFormat(new Date(res.data.endTime), 'yyy/MM/dd');
-      } else {
-        this.msg.error(res.msg);
-      }
-    });
+    // this.httpService.get('/api/home?siteId=' + this.siteId, res => {
+    //   if (res.code == 100) {
+    //     this.uniformsSummary = res.data.uniforms;
+    //     this.employeeSummary = res.data.employees;
+    //     this.startTime = Utils.dateFormat(new Date(res.data.startTime), 'yyy/MM/dd');
+    //     this.endTime = Utils.dateFormat(new Date(res.data.endTime), 'yyy/MM/dd');
+    //   } else {
+    //     this.msg.error(res.msg);
+    //   }
+    // });
   }
 
   loadUniformTypeData() {
-    this.httpService.get('/api/uniformtype?siteId=' + this.siteId, res => {
-      if (res.code == 100) {
-        this.listOfData = res.data;
-      } else {
-        this.msg.error(res.msg);
-      }
-    });
+    // this.httpService.get('/api/uniformtype?siteId=' + this.siteId, res => {
+    //   if (res.code == 100) {
+    //     this.listOfData = res.data;
+    //   } else {
+    //     this.msg.error(res.msg);
+    //   }
+    // });
   }
   handleChange({file}: UploadChangeParam): void {
     this.fileList=[file];
