@@ -8,11 +8,12 @@ import { SysComponent } from './sys.component';
 import { SysRoutingModule } from './sys-routing.module';
 import { NzTableModule, NzGridModule, NzFormModule, NzInputModule, NzButtonModule, NzSelectModule, NzIconModule, NzDividerModule, NzModalModule, NzTreeModule, NzCheckboxModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './user/change-password.component';
 
 
 
 @NgModule({
-  declarations: [UserComponent, PermissionComponent, RoleComponent, MenuComponent, SysComponent],
+  declarations: [UserComponent, PermissionComponent, RoleComponent, MenuComponent, SysComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     FormsModule,

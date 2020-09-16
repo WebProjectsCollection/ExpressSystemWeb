@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { HttpService } from 'src/app/public/http/http.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { LocalStorageService } from 'src/app/public/storage/local-storage.service';
-import { LOGIN_KEY } from 'src/app/public/common.const';
 import { ModalService } from 'src/app/public/modal/modal.service';
 
 @Component({
@@ -36,15 +35,11 @@ export class UserComponent implements OnInit {
 
   initForm(): void {
     this.validateForm = this.fb.group({
-      ntid: [null, [Validators.required]],
-      fullName: [{ value: '', disabled: true }],
-      email: [{ value: '', disabled: true }],
-      department: [{ value: '', disabled: true }],
-      role: [null, [Validators.required]],
-      employeeId: [{ value: '', disabled: true }]
+     userName: [null, [Validators.required]],
+     chineseName: [null, [Validators.required]],
+     role: [null, [Validators.required]],
     });
-    var siteId = this.lgs.getObject(LOGIN_KEY).siteId;
-    this.httpService.get('/api/role/list?siteId=' + siteId, res => {
+    this.httpService.get('/api/role/list', res => {
       if (res.code == 100) {
         this.roleList = res.data;
       } else {
@@ -54,8 +49,7 @@ export class UserComponent implements OnInit {
   }
 
   loadData() {
-    var siteId = this.lgs.getObject(LOGIN_KEY).siteId;
-    this.httpService.get('/api/user?siteId=' + siteId, res => {
+    this.httpService.get('/api/user', res => {
       if (res.code == 100) {
         this.loadDataSet = res.data;
         this.search();
@@ -66,13 +60,12 @@ export class UserComponent implements OnInit {
   }
 
   search(): void {
-    const filterFunc = (item: { employeeID: number; chineseName: string; emailAddress: string; roleName: string; }) => {
-      return (item.employeeID.toString().indexOf(this.searchValue) !== -1
+    const filterFunc = (item: { userName: number; chineseName: string; roleName: string; }) => {
+      return (item.userName.toString().indexOf(this.searchValue) !== -1
         || item.chineseName.indexOf(this.searchValue) !== -1
-        || item.emailAddress.indexOf(this.searchValue) !== -1
         || item.roleName.indexOf(this.searchValue) !== -1);
     };
-    this.dataSet = this.loadDataSet.filter((item: { employeeID: number; chineseName: string; emailAddress: string; roleName: string; }) => filterFunc(item));
+    this.dataSet = this.loadDataSet.filter((item: { userName: number; chineseName: string; roleName: string; }) => filterFunc(item));
   }
 
   editUser(data = null): void {
@@ -82,28 +75,11 @@ export class UserComponent implements OnInit {
     this.isNew = true;
     if (data != null) {
       this.isNew = false;
-      this.validateForm.get('ntid').setValue(data.ntid);
-      this.validateForm.get('department').setValue(data.department);
-      this.validateForm.get('fullName').setValue(data.chineseName);
-      this.validateForm.get('email').setValue(data.emailAddress);
-      this.validateForm.get('employeeId').setValue(data.employeeID);
+      this.validateForm.get('userName').setValue(data.userName);
+      this.validateForm.get('chineseName').setValue(data.chineseName);
       this.validateForm.get('role').setValue(data.roleId);
     }
     this.isVisible = true;
-  }
-
-  changeNTID() {
-    var ntid = this.validateForm.get('ntid').value;
-    this.httpService.get('/api/user/' + ntid, res => {
-      if (res.code == 100) {
-        this.validateForm.get('department').setValue(res.data.department);
-        this.validateForm.get('fullName').setValue(res.data.displayName);
-        this.validateForm.get('email').setValue(res.data.mail);
-        this.validateForm.get('employeeId').setValue(res.data.employeeID);
-      } else {
-        this.msg.error(res.msg);
-      }
-    });
   }
 
   handleOk() {
@@ -114,9 +90,9 @@ export class UserComponent implements OnInit {
     if (this.validateForm.valid) {
       var data = {
         isNew: this.isNew,
-        ntid: this.validateForm.get('ntid').value,
+        userName: this.validateForm.get('userName').value,
         roleId: this.validateForm.get('role').value,
-        employeeId: this.validateForm.get('employeeId').value,
+        chineseName: this.validateForm.get('chineseName').value,
       }
       this.httpService.post('/api/user', data, res => {
         if (res.code == 100) {
@@ -136,9 +112,22 @@ export class UserComponent implements OnInit {
   delete(data) {
     this.modalService.confirm(`确定删除用户 ${data.chineseName} 吗？`, '',
       () => {
-        this.httpService.delete('/api/user/' + data.ntid, res => {
+        this.httpService.delete('/api/user/' + data.userName, res => {
           if (res.code == 100) {
             this.loadData();
+          } else {
+            this.msg.error(res.msg);
+          }
+        });
+      }
+    );
+  }
+  resetPassword(data) {
+    this.modalService.confirm(`确定重置用户 ${data.chineseName} 的密码吗？`, '',
+      () => {
+        this.httpService.post('/api/user/resetPassword', {userName:data.userName}, res => {
+          if (res.code == 100) {
+            this.msg.success("密码重置成功");
           } else {
             this.msg.error(res.msg);
           }

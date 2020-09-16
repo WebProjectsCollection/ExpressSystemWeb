@@ -6,6 +6,7 @@ import { RoleComponent } from './role/role.component';
 import { MenuComponent } from './menu/menu.component';
 import { PermissionComponent } from './permission/permission.component';
 import { SysComponent } from './sys.component';
+import { ChangePasswordComponent } from './user/change-password.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
       { path: 'user', component: UserComponent },
       { path: 'role', component: RoleComponent },
       { path: 'menu', component: MenuComponent },
-      { path: 'permission', component: PermissionComponent }
+      { path: 'permission', component: PermissionComponent },
+      { path: 'changePassword', component: ChangePasswordComponent }
     ]
   }
 ]

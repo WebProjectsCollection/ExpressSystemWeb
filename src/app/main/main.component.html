@@ -29,12 +29,12 @@
   <nz-layout>
     <nz-header id="header">
       <div class="app-header">
-        <span class="header-index-action">
+        <!-- <span class="header-index-action">
           <span style="margin:20px 6px 20px 0">
             <i nz-icon nzType="environment" nzTheme="twotone" style="font-size: 14px; vertical-align: middle;"></i>
           </span>
           <span style="vertical-align: middle;font-family: 'Microsoft YaHei'">{{siteName}}</span>
-        </span>
+        </span> -->
         <span class="header-index-action" nz-dropdown [nzDropdownMenu]="menu">
           <span style="margin:20px 8px 20px 0">
             <nz-avatar nzIcon="user" [nzSize]="24" style="background-color:#87d068;"></nz-avatar>
@@ -44,6 +44,7 @@
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
             <li nz-menu-item (click)="logout()">退出系统</li>
+            <li nz-menu-item (click)="changePassword()">修改密码</li>
           </ul>
         </nz-dropdown-menu>
       </div>

@@ -74,4 +74,7 @@ export class MainComponent implements OnInit {
       }
     );
   }
+  changePassword(){
+    this.router.navigate(['/app/sys/changePassword']);
+  }
 }

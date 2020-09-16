@@ -1,5 +1,5 @@
 <nz-input-group style="width:240px;" nzSearch [nzAddOnAfter]="suffixIconButton">
-    <input type="text" nz-input placeholder="NTID/姓名/邮箱/角色" [(ngModel)]="searchValue"/>
+    <input type="text" nz-input placeholder="用户名/姓名/角色" [(ngModel)]="searchValue"/>
 </nz-input-group>
 <ng-template #suffixIconButton>
     <button nz-button nzType="default" nzSearch (click)="search()"><i nz-icon nzType="search"></i></button>
@@ -10,24 +10,23 @@
     <nz-table #borderedTable nzBordered [nzData]="dataSet">
         <thead>
             <tr>
-                <th>工号</th>
+                <th>用户名</th>
                 <th>姓名</th>
-                <th>邮箱</th>
                 <th>角色</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let data of borderedTable.data">
-                <td>{{ data.employeeID }}</td>
+                <td>{{ data.userName }}</td>
                 <td>{{ data.chineseName }}</td>
-                <td>{{ data.emailAddress }}</td>
                 <td>{{ data.roleName }}</td>
                 <td>
                     <a (click)="editUser(data)">编辑</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a (click)="delete(data)">删除</a>
                     <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="resetPassword(data)">重置密码</a>
                 </td>
             </tr>
         </tbody>
@@ -36,33 +35,20 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="添加用户" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" nzOkText="保存">
     <form nz-form [formGroup]="validateForm">
         <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="ntid">NTID</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input NTID!">
-                <input nz-input formControlName="ntid" id="ntid" (change)="changeNTID()" />
-                <input type="hidden" nz-input formControlName="employeeId" id="employeeId" />
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userName">用户名</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入用户名!">
+                <input nz-input formControlName="userName" id="userName" [disabled]="!isNew" [readonly]="!isNew"/>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fullName">姓名</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input nz-input formControlName="fullName" />
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="chineseName">姓名</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请填写姓名!">
+                <input nz-input formControlName="chineseName" />
             </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">邮箱</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input nz-input formControlName="email" />
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="department">部门</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24">
-                <input nz-input formControlName="department" />
-            </nz-form-control>
-        </nz-form-item>
+        </nz-form-item>        
         <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="role">角色</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select role!">
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请选择角色!">
                 <nz-select formControlName="role">
                     <nz-option *ngFor="let option of roleList" [nzLabel]="option.roleName" [nzValue]="option.roleID">
                     </nz-option>

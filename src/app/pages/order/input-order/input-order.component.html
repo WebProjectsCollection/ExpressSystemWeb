@@ -1,0 +1,55 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="orderNumber">快递单号</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入快递单号!">
+            <input nz-input formControlName="orderNumber" id="orderNumber" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="jbbwName" nzRequired>津巴布韦姓名</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入津巴布韦姓名!">
+            <input nz-input id="jbbwName" formControlName="jbbwName" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="jbbwPhone" nzRequired>津巴布韦电话</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入津巴布韦电话!">
+            <input nz-input id="jbbwPhone" formControlName="jbbwPhone" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="jbbwAddress" nzRequired>津巴布韦地址</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入津巴布韦地址!">
+            <input nz-input id="jbbwAddress" formControlName="jbbwAddress" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="senderName">寄件人姓名</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入寄件人姓名!">
+            <input nz-input id="senderName" formControlName="senderName" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="senderPhone">寄件人电话</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入寄件人电话!">
+            <input nz-input id="senderPhone" formControlName="senderPhone" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="senderAddress">寄件人地址</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入寄件人地址!">
+            <input nz-input id="senderAddress" formControlName="senderAddress" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="">
+            <textarea nz-input id="remarks" formControlName="remarks" nzAutosize placeholder="备注信息" ></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button nz-button nzType="primary" style="width: 100%;" (click)="saveOrder()">保存</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

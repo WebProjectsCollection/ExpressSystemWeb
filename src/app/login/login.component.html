@@ -1,32 +1,22 @@
 <nz-layout>
   <nz-header>
-    <h2 style="text-align: center;margin-top: 100px;"><span>Uniform Management System</span></h2>
+    <h2 *ngIf="!setPasswordVisible" style="text-align: center;margin-top: 100px;"><span>快递管理系统</span></h2>
+    <h2 *ngIf="setPasswordVisible" style="text-align: center;margin-top: 100px;"><span>您的密码为初始密码，须重新设置密码</span></h2>
   </nz-header>
   <nz-layout>
     <nz-content>
-      <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
+      <form nz-form *ngIf="!setPasswordVisible" [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
         <nz-form-item>
-          <nz-form-control nzErrorTip="Please input your NTID!">
+          <nz-form-control nzErrorTip="请输入用户名！">
             <nz-input-group nzPrefixIcon="user">
-              <input type="text" nz-input formControlName="userName" placeholder="NTID" />
+              <input type="text" nz-input formControlName="userName" placeholder="用户名" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-          <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-form-control nzErrorTip="请输入密码！">
             <nz-input-group nzPrefixIcon="lock">
-              <input type="password" nz-input formControlName="password" placeholder="Password" />
-            </nz-input-group>
-          </nz-form-control>
-        </nz-form-item>
-        <nz-form-item>
-          <nz-form-control nzErrorTip="Please select your site!">
-            <nz-input-group nzPrefixIcon="environment">
-              <nz-select id="site" formControlName="site" nzPlaceHolder="Select a site"
-                (ngModelChange)="changeSite($event)">
-                <nz-option *ngFor="let option of siteList" [nzLabel]="option.siteName" [nzValue]="option.siteID">
-                </nz-option>
-              </nz-select>
+              <input type="password" nz-input formControlName="password" placeholder="密码" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
@@ -37,6 +27,36 @@
             </label>
             <button nz-button class="login-form-button" [nzType]="'primary'" (click)="login(loginForm.valid);">Log
               in</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+      <form nz-form *ngIf="setPasswordVisible" class="login-form" [formGroup]="validateForm"
+        (ngSubmit)="submitPasswordForm()">
+        <nz-form-item>
+          <nz-form-label nzFor="password" nzRequired>密码</nz-form-label>
+          <nz-form-control nzErrorTip="请输入密码！">
+            <input nz-input type="password" id="password" formControlName="password"
+              (ngModelChange)="updateConfirmValidator()" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="checkPassword" nzRequired>再次输入密码</nz-form-label>
+          <nz-form-control [nzErrorTip]="errorTpl">
+            <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                请再次输入密码!
+              </ng-container>
+              <ng-container *ngIf="control.hasError('confirm')">
+                两次密码不一致!
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control>
+            <button class="login-form-button" nz-button nzType="primary" (click)="savePassword(validateForm.valid);">保存</button>
+            <button type="button" class="login-form-button" nz-button nzType="warning" (click)="cancel();">返回</button>
           </nz-form-control>
         </nz-form-item>
       </form>

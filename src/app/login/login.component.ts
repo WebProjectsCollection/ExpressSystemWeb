@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from '../public/http/http.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../public/storage/local-storage.service';
-import { LOGIN_KEY, SITENAME_KEY } from '../public/common.const';
+import { LOGIN_KEY } from '../public/common.const';
 import { environment } from 'src/environments/environment';
+import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,9 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  siteList: any[] = [];
-  siteName: string;
+  validateForm: FormGroup;
+  setPasswordVisible = false;
+  userName = '';
 
   submitForm(): void {
     for (const i in this.loginForm.controls) {
@@ -23,6 +25,25 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls[i].updateValueAndValidity();
     }
   }
+  submitPasswordForm(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+  }
+  updateConfirmValidator(): void {
+    /** wait for refresh value */
+    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
+  }
+
+  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (control.value !== this.validateForm.controls.password.value) {
+      return { confirm: true, error: true };
+    }
+    return {};
+  };
 
   constructor(
     private router: Router,
@@ -33,14 +54,23 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.showLogin()
+    console.log(environment.apiurl);
+  }
+  showLogin(){    
+    this.setPasswordVisible = false;
     this.loginForm = this.fb.group({
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      site: [null, [Validators.required]],
       remember: [true]
     });
-    this.getSiteList();
-    console.log(environment.apiurl);
+  }
+  showSetPassword(){    
+    this.setPasswordVisible = true;            
+    this.validateForm = this.fb.group({
+      password: [null, [Validators.required]],
+      checkPassword: [null, [Validators.required, this.confirmationValidator]],
+    });
   }
 
   /**
@@ -51,36 +81,41 @@ export class LoginComponent implements OnInit {
       let that = this;
       var x = {
         userName: this.loginForm.controls['userName'].value,
-        password: this.loginForm.controls['password'].value,
-        siteId: this.loginForm.controls['site'].value,
-      }
+        password: Md5.hashStr(this.loginForm.controls['password'].value),
+      };
       this.httpService.post('/api/account/login', x, res => {
         if (res.code == 100) {
-          that.lgs.setObject(LOGIN_KEY, res.data);
-          that.lgs.set(SITENAME_KEY, that.siteName);
-          that.router.navigate(['/app']);
+          if(res.data.waitSet === 1){
+            this.userName = res.data.userName;
+            this.showSetPassword();
+          }else{
+            that.lgs.setObject(LOGIN_KEY, res.data);
+            that.router.navigate(['/app']);
+          }
         } else {
           this.msg.error('用户名或密码错误！');
         }
       });
     }
   }
-
-  getSiteList(): void {
-    this.httpService.get('/api/site', res => {
-      if (res.code == 100) {
-        this.siteList = res.data;
-      } else {
-        this.msg.error(res.msg);
-      }
-    });
+  cancel(){   
+    this.showLogin();
   }
-
-  changeSite(s_siteId): void {
-    this.siteList.forEach(element => {
-      if (s_siteId === element.siteID) {
-        this.siteName = element.siteName;
-      }
-    });
+  savePassword(valid: boolean){
+    if (valid) {
+      let that = this;
+      var x = {
+        userName: this.userName,
+        password: Md5.hashStr(this.validateForm.controls['password'].value),
+      };
+      this.httpService.post('/api/account/setPassword', x, res => {
+        if (res.code == 100) {
+          this.msg.success('设置成功，请重新登录');
+          this.showLogin();
+        } else {
+          this.msg.error(res.msg);
+        }
+      });
+    }
   }
 }

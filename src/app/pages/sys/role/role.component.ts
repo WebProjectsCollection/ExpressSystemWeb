@@ -24,8 +24,7 @@ export class RoleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    var siteId = this.lgs.getObject(LOGIN_KEY).siteId;
-    this.httpService.get('/api/role/list?siteId=' + siteId, res => {
+    this.httpService.get('/api/role/list', res => {
       if (res.code == 100) {
         this.dataSet = res.data;
       } else {
@@ -92,11 +91,11 @@ export class RoleComponent implements OnInit {
     // 更新选中菜单
     this.httpService.get('/api/role/menus?roleId=' + this.selectedRoleId, res => {
       if (res.code == 100) {
-        var menuIds = res.data;
+        this.checkedNodes = res.data;
         this.nodes.forEach(n => {
           n.checked = false;
           n.children.forEach(sn => {
-            sn.checked = menuIds.indexOf(sn.key) > -1;
+            sn.checked = this.checkedNodes.indexOf(sn.key) > -1;
           })
         })
         this.nodes = [...this.nodes];
@@ -113,6 +112,7 @@ export class RoleComponent implements OnInit {
       roleId: this.selectedRoleId,
       menuIds: this.checkedNodes
     };
+    console.log(this.checkedNodes)
     this.httpService.post('/api/role/menu', data, res => {
       if (res.code == 100) {
         this.isVisible = false;
