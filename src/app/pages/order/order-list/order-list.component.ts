@@ -16,6 +16,7 @@ export class OrderListComponent implements OnInit {
   recordList: any[] = [];
   userName = this.lgs.getObject(LOGIN_KEY).userName;
 
+  batchNoOptions: Array<{ label: string; value: string }> = [];
   isAllDataChecked = false;
   mapOfCheckedId: { [key: string]: boolean } = {};
   numberOfChecked = 0;
@@ -33,9 +34,17 @@ export class OrderListComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       orderNumber: [""],
+      batchNo: [""],
       keyWord: [""],
       flightNumber: [""],
       createTimeSpen: [[]],
+    });
+    this.httpService.get("/api/order/batchNos", (res) => {
+      if (res.code == 100) {
+        this.batchNoOptions = res.data;
+      } else {
+        this.msg.error(res.msg);
+      }
     });
     this.searchData();
   }

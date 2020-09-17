@@ -1,50 +1,59 @@
 <form nz-form [formGroup]="validateForm" nzLayout="inline">
-    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
-        <div nz-col [nzSpan]="8">
-            <nz-form-item>
-                <nz-form-label>快递单号</nz-form-label>
-                <nz-form-control>
-                    <input nz-input formControlName="orderNumber" />
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="8">
-            <nz-form-item>
-                <nz-form-label>关键字</nz-form-label>
-                <nz-form-control>
-                    <input nz-input placeholder="津巴布韦电话/姓名" formControlName="keyWord" />
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="8">
-            <nz-form-item>
-                <nz-form-label>航班号</nz-form-label>
-                <nz-form-control>
-                    <input nz-input formControlName="flightNumber" />
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="12">
-            <nz-form-item>
-                <nz-form-label>录单时间</nz-form-label>
-                <nz-form-control>
-                    <nz-range-picker formControlName="createTimeSpen"></nz-range-picker>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-        <div nz-col [nzSpan]="12">
-            <nz-form-item nzFlex>
-                <nz-form-control>
-                    <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
-                        (click)="searchData(true)">查询</button>
-                    <button style="margin-left: 20px;" nz-button><i nz-icon
-                            nzType="download"></i><span>广州中转确认</span></button>
-                    <button style="margin-left: 20px;" nz-button><i nz-icon
-                            nzType="download"></i><span>中转机场确认</span></button>
-                </nz-form-control>
-            </nz-form-item>
-        </div>
-    </div>
+
+    <nz-form-item>
+        <nz-form-label>快递单号</nz-form-label>
+        <nz-form-control>
+            <input nz-input formControlName="orderNumber" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>批次号</nz-form-label>
+        <nz-form-control>
+            <nz-select nzAllowClear formControlName="batchNo" style="min-width: 200px;">
+                <nz-option *ngFor="let item of batchNoOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>订单状态</nz-form-label>
+        <nz-form-control>
+            <nz-select nzAllowClear formControlName="status" style="min-width: 100px;">
+                <nz-option nzLabel="all" nzValue="--">
+                </nz-option>
+                <nz-option nzLabel="all" nzValue="--">
+                </nz-option>
+                <nz-option nzLabel="all" nzValue="--">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>关键字</nz-form-label>
+        <nz-form-control>
+            <input nz-input placeholder="津巴布韦电话/姓名" formControlName="keyWord" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>航班号</nz-form-label>
+        <nz-form-control>
+            <input nz-input formControlName="flightNumber" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>录单时间</nz-form-label>
+        <nz-form-control>
+            <nz-range-picker formControlName="createTimeSpen"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
+                (click)="searchData(true)">查询</button>
+            <button style="margin-left: 20px;" nz-button><i nz-icon nzType="download"></i><span>广州中转确认</span></button>
+            <button style="margin-left: 20px;" nz-button><i nz-icon nzType="download"></i><span>中转机场确认</span></button>
+        </nz-form-control>
+    </nz-form-item>
 </form>
 <div class="search-result-list">
     <nz-table #borderedTable nzBordered [nzData]="recordList" nzShowSizeChanger [nzFrontPagination]="false"

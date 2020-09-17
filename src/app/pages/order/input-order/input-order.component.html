@@ -6,6 +6,16 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="batchNo">发货批次</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入发货批次!">
+            <nz-select [nzMaxMultipleCount]="1" nzMode="tags" formControlName="batchNo"
+                nzPlaceHolder="可以是广州包裹号或者发货批次号(如:'20200917批次一')">
+                <nz-option *ngFor="let item of batchNoOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="jbbwName" nzRequired>津巴布韦姓名</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入津巴布韦姓名!">
             <input nz-input id="jbbwName" formControlName="jbbwName" />
@@ -42,9 +52,15 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="weight">重量</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入重量!">
+            <input nz-input id="weight" formControlName="weight" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="">
-            <textarea nz-input id="remarks" formControlName="remarks" nzAutosize placeholder="备注信息" ></textarea>
+            <textarea nz-input id="remarks" formControlName="remarks" nzAutosize placeholder="备注信息"></textarea>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item nz-row class="register-area">

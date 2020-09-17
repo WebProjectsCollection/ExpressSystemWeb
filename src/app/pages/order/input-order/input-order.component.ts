@@ -17,6 +17,7 @@ import { LocalStorageService } from "src/app/public/storage/local-storage.servic
 })
 export class InputOrderComponent implements OnInit {
   validateForm: FormGroup;
+  batchNoOptions: Array<{ label: string; value: string }> = [];
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -35,13 +36,22 @@ export class InputOrderComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       orderNumber: [null, [Validators.required]],
+      batchNo: [null, [Validators.required]],
       jbbwName: [null, [Validators.required]],
       jbbwPhone: [null, [Validators.required]],
       jbbwAddress: [null, [Validators.required]],
       senderName: [null],
       senderPhone: [null],
       senderAddress: [null],
+      weight: [null],
       remarks: [null],
+    });
+    this.httpService.get("/api/order/batchNos", (res) => {
+      if (res.code == 100) {
+        this.batchNoOptions = res.data;
+      } else {
+        this.msg.error(res.msg);
+      }
     });
   }
   saveOrder(): void {
@@ -50,6 +60,7 @@ export class InputOrderComponent implements OnInit {
       var data = {
         userName: this.lgs.getObject(LOGIN_KEY).userName,
         orderNumber: this.validateForm.controls["orderNumber"].value,
+        batchNo: this.validateForm.controls["batchNo"].value[0],
         jbbwName: this.validateForm.controls["jbbwName"].value,
         jbbwPhone: this.validateForm.controls["jbbwPhone"].value,
         jbbwAddress: this.validateForm.controls["jbbwAddress"].value,
@@ -57,10 +68,11 @@ export class InputOrderComponent implements OnInit {
         senderPhone: this.validateForm.controls["senderPhone"].value,
         senderAddress: this.validateForm.controls["senderAddress"].value,
         remarks: this.validateForm.controls["remarks"].value,
+        weight: this.validateForm.controls["weight"].value,
       };
       this.httpService.post("/api/order", data, (res) => {
         if (res.code == 100) {
-          this.msg.success("设置成功，请重新登录");
+          this.msg.success("保存成功");
         } else {
           this.msg.error(res.msg);
         }
