@@ -25,6 +25,9 @@ export class InputOrderComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
   }
+  resetForm(): void {
+    this.validateForm.reset();
+  }
 
   constructor(
     private msg: NzMessageService,
@@ -36,15 +39,12 @@ export class InputOrderComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       orderNumber: [null, [Validators.required]],
-      batchNo: [null, [Validators.required]],
       jbbwName: [null, [Validators.required]],
       jbbwPhone: [null, [Validators.required]],
       jbbwAddress: [null, [Validators.required]],
       senderName: [null],
       senderPhone: [null],
       senderAddress: [null],
-      weight: [null],
-      remarks: [null],
     });
     this.httpService.get("/api/order/batchNos", (res) => {
       if (res.code == 100) {
@@ -60,19 +60,17 @@ export class InputOrderComponent implements OnInit {
       var data = {
         userName: this.lgs.getObject(LOGIN_KEY).userName,
         orderNumber: this.validateForm.controls["orderNumber"].value,
-        batchNo: this.validateForm.controls["batchNo"].value[0],
         jbbwName: this.validateForm.controls["jbbwName"].value,
         jbbwPhone: this.validateForm.controls["jbbwPhone"].value,
         jbbwAddress: this.validateForm.controls["jbbwAddress"].value,
         senderName: this.validateForm.controls["senderName"].value,
         senderPhone: this.validateForm.controls["senderPhone"].value,
         senderAddress: this.validateForm.controls["senderAddress"].value,
-        remarks: this.validateForm.controls["remarks"].value,
-        weight: this.validateForm.controls["weight"].value,
       };
       this.httpService.post("/api/order", data, (res) => {
         if (res.code == 100) {
           this.msg.success("保存成功");
+          this.validateForm.reset();
         } else {
           this.msg.error(res.msg);
         }

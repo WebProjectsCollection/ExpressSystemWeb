@@ -21,9 +21,11 @@ import {
   NzTimePickerModule,
   NzDatePickerModule,
 } from "ng-zorro-antd";
+import { PackageOrderComponent } from './package-order/package-order.component';
+import { JbbwReceiveComponent } from './jbbw-receive/jbbw-receive.component';
 
 @NgModule({
-  declarations: [OrderComponent, OrderListComponent, InputOrderComponent],
+  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

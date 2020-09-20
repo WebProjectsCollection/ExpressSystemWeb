@@ -1,8 +1,10 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { InputOrderComponent } from "./input-order/input-order.component";
+import { JbbwReceiveComponent } from "./jbbw-receive/jbbw-receive.component";
 import { OrderListComponent } from "./order-list/order-list.component";
 import { OrderComponent } from "./order.component";
+import { PackageOrderComponent } from "./package-order/package-order.component";
 
 const routes: Routes = [
   {
@@ -11,6 +13,8 @@ const routes: Routes = [
     children: [
       { path: "orderlist", component: OrderListComponent },
       { path: "inputorder", component: InputOrderComponent },
+      { path: "packateorder", component: PackageOrderComponent },
+      { path: "jbbwreceive", component: JbbwReceiveComponent },
     ],
   },
 ];
