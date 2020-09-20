@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 import {
   FormBuilder,
@@ -12,9 +12,9 @@ import { HttpService } from "src/app/public/http/http.service";
 import { LocalStorageService } from "src/app/public/storage/local-storage.service";
 
 @Component({
-  selector: 'app-jbbw-receive',
-  templateUrl: './jbbw-receive.component.html',
-  styleUrls: ['./jbbw-receive.component.css']
+  selector: "app-jbbw-receive",
+  templateUrl: "./jbbw-receive.component.html",
+  styleUrls: ["./jbbw-receive.component.css"],
 })
 export class JbbwReceiveComponent implements OnInit {
   validateForm: FormGroup;
@@ -41,7 +41,7 @@ export class JbbwReceiveComponent implements OnInit {
     private fb: FormBuilder,
     private lgs: LocalStorageService,
     private httpService: HttpService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -106,22 +106,15 @@ export class JbbwReceiveComponent implements OnInit {
           if (res.data != null) {
             switch (res.data.status) {
               case "1001":
-                this.msg.warning("该快递单号待发货！");
-                this.initFormData(res.data);
-                break;
               case "1011":
-                this.initFormData(res.data);
+                this.msg.warning("该快递单号未发货，请检查！");
+                isOk = false;
                 break;
               case "1012":
-                this.msg.warning("该快递单号飞机运输中！");
-                this.initFormData(res.data);
-                break;
-              case "1013":
-                this.msg.warning("该快递单号已确认，不可重复提交！");
                 this.initFormData(res.data);
                 break;
               default:
-                this.msg.error("该快递单号已发货，不可修改，请检查！");
+                this.msg.error("该快递单号已派送，请检查！");
                 isOk = false;
                 break;
             }
