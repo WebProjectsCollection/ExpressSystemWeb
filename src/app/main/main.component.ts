@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuData } from './main-model';
 import { HttpService } from '../public/http/http.service';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService,NzModalRef } from 'ng-zorro-antd';
 import { LocalStorageService } from '../public/storage/local-storage.service';
 import { LOGIN_KEY, SITENAME_KEY } from '../public/common.const';
 import { ModalService } from '../public/modal/modal.service';
