@@ -132,10 +132,15 @@ export class PackageOrderComponent implements OnInit {
     );
   }
   initFormData(data): void {
+    if (data.batchNo === null || data.batchNo === "") {
+      data.batchNo = [];
+    } else {
+      data.batchNo = [data.batchNo];
+    }
     this.validateForm.get("id")!.setValue(data.id);
     this.validateForm.get("jbbwName")!.setValue(data.jbbwName);
     this.validateForm.get("jbbwPhone")!.setValue(data.jbbwPhone);
-    this.validateForm.get("batchNo")!.setValue([data.batchNo]);
+    this.validateForm.get("batchNo")!.setValue(data.batchNo);
     this.validateForm.get("jbbwAddress")!.setValue(data.jbbwAddress);
     this.validateForm.get("senderName")!.setValue(data.senderName);
     this.validateForm.get("senderPhone")!.setValue(data.senderPhone);
