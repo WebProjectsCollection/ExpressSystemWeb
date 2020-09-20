@@ -1,1 +1,25 @@
-<p>jbbw-receive works!</p>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="orderNumber">快递单号</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入快递单号!">
+            <input nz-input formControlName="orderNumber" id="orderNumber" (change)="getOrderDetail()" />
+        </nz-form-control>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+            <input type="hidden" formControlName="id" id="id" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="remarks">备注</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="">
+            <textarea nz-input id="remarks" formControlName="remarks" nzAutosize placeholder="备注信息"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button type="button" nz-button nzType="primary" style="width: 100%;" (click)="saveOrder()">保存</button>
+        </nz-form-control>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+            <button type="button" nz-button nzType="danger" style="width: 100%;" (click)="resetForm()">清空</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
