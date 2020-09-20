@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiurl: "http://open.acloud.corp.jabil.org/uniform"
+  apiurl: "http://www.code-data.cn/webapi",
 };

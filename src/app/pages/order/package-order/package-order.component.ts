@@ -65,6 +65,7 @@ export class PackageOrderComponent implements OnInit {
     });
   }
   saveOrder(): void {
+    this.submitForm();
     if (this.validateForm.valid) {
       let that = this;
       var data = {

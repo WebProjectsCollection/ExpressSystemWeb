@@ -55,6 +55,7 @@ export class InputOrderComponent implements OnInit {
     });
   }
   saveOrder(): void {
+    this.submitForm();
     if (this.validateForm.valid) {
       let that = this;
       var data = {
