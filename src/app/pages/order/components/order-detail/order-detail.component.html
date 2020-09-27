@@ -1,0 +1,38 @@
+<nz-modal [(nzVisible)]="detailVisible" nzTitle="订单详情" [nzCancelText]="null" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleCancel()">
+    <nz-form-item>
+        <nz-form-label>快递单号</nz-form-label> {{orderinfo.orderNumber}}
+        <br>
+        <nz-form-label>发货批次号 </nz-form-label> {{orderinfo.batchNo }}
+        <br>
+        <nz-form-label>重量 </nz-form-label> {{orderinfo.weight }}
+        <br>
+        <nz-form-label>津巴布韦姓名 </nz-form-label> {{orderinfo.jbbwName }}
+        <br>
+        <nz-form-label>津巴布韦电话 </nz-form-label> {{orderinfo.jbbwPhone }}
+        <br>
+        <nz-form-label>津巴布韦地址 </nz-form-label> {{orderinfo.jbbwAddress }}
+        <br>
+        <nz-form-label>寄件人姓名 </nz-form-label> {{orderinfo.senderName }}
+        <br>
+        <nz-form-label>寄件人电话 </nz-form-label> {{orderinfo.senderPhone }}
+        <br>
+        <nz-form-label>寄件人地址 </nz-form-label> {{orderinfo.senderAddress }}
+        <br>
+        <nz-form-label>航班号 </nz-form-label> {{orderinfo.flightNumber }}
+        <br>
+        <nz-form-label>预计落地时间 </nz-form-label> {{orderinfo.landingTime }}
+        <br>
+        <nz-form-label>订单状态详情 </nz-form-label> {{orderinfo.statusStr}}
+        <br>
+        <nz-form-label>备注 </nz-form-label> {{orderinfo.remarks }}
+        <br>
+        <nz-form-label>录单时间 </nz-form-label> {{orderinfo.createTime }}
+        <br>
+        <nz-form-label>录单人 </nz-form-label> {{orderinfo.createdBy }}
+        <br>
+        <nz-form-label>最后修改时间 </nz-form-label> {{orderinfo.updateTime }}
+        <br>
+        <nz-form-label>最后修改人 </nz-form-label> {{orderinfo.updatedBy }}
+    </nz-form-item>
+</nz-modal>

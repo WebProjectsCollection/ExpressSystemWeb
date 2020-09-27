@@ -1,0 +1,81 @@
+<form nz-form [formGroup]="queryForm" nzLayout="inline">
+    <nz-form-item>
+        <nz-form-label>快递单号</nz-form-label>
+        <nz-form-control>
+            <input nz-input formControlName="orderNumber" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>关键字</nz-form-label>
+        <nz-form-control>
+            <input nz-input placeholder="津巴布韦电话/姓名" formControlName="keyWord" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>批次号</nz-form-label>
+        <nz-form-control>
+            <nz-select nzAllowClear formControlName="batchNo" style="min-width: 200px;">
+                <nz-option *ngFor="let item of batchNoOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>订单状态</nz-form-label>
+        <nz-form-control>
+            <nz-select formControlName="status" style="min-width: 150px;">
+                <nz-option *ngFor="let item of statusOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>录单时间</nz-form-label>
+        <nz-form-control>
+            <nz-range-picker formControlName="createTimeSpen"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
+                (click)="searchData(true)">查询</button>
+            <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><i nz-icon
+                    nzType="download"></i><span>广州揽件确认</span></button>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+<div class="search-result-list">
+    <nz-table #borderedTable nzBordered [nzData]="recordList" nzShowSizeChanger [nzFrontPagination]="false"
+        [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="searchData()"
+        (nzPageSizeChange)="searchData(true)">
+        <thead>
+            <tr>
+                <th nzShowCheckbox [(nzChecked)]="isAllDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+                <th>快递单号</th>
+                <th>津巴布韦电话</th>
+                <th>津巴布韦姓名</th>
+                <th>录单人</th>
+                <th>录单时间</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of borderedTable.data">
+                <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+                <td> {{data.orderNumber}}</td>
+                <td> {{data.jbbwPhone}}</td>
+                <td> {{data.jbbwName}}</td>
+                <td> {{data.createdBy}}</td>
+                <td> {{data.createTime}}</td>
+                <td>
+                    <a (click)="detail(data)">详情</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a (click)="airportConfirm(data)">广州确认</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+<!-- 详情弹窗 -->
+<app-order-detail *ngIf="detailVisible" [ordernumber]="ordernumber" (onCancel)="handleDetailCancel()">
+</app-order-detail>

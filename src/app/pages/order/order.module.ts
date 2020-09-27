@@ -23,9 +23,11 @@ import {
 } from "ng-zorro-antd";
 import { PackageOrderComponent } from './package-order/package-order.component';
 import { JbbwReceiveComponent } from './jbbw-receive/jbbw-receive.component';
+import { GuangzhouReceiveComponent } from './guangzhou-receive/guangzhou-receive.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 @NgModule({
-  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent],
+  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
