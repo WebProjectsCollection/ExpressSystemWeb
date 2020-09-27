@@ -120,6 +120,10 @@ export class GuangzhouReceiveComponent implements OnInit {
           Order_Num: t.orderNumber,
         };
       });
+    if (dicOrders.length === 0) {
+      this.msg.warning("请至少选择一笔快递单！");
+      return;
+    }
     this.showConfirm(dicOrders);
   }
   showConfirm(data: any): void {
