@@ -29,10 +29,11 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { ImportOrderComponent } from './import-order/import-order.component';
 import { ZZJCReceiveComponent } from "./zzjc-receive/zzjc-receive.component";
 import { QGReceiveComponent } from "./qg-receive/qg-receive.component";
+import { UpdateByBatchNoComponent } from './components/update-by-batch-no/update-by-batch-no.component';
 
 @NgModule({
   declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent,
-    JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ZZJCReceiveComponent, QGReceiveComponent, ImportOrderComponent],
+    JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ZZJCReceiveComponent, QGReceiveComponent, ImportOrderComponent, UpdateByBatchNoComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

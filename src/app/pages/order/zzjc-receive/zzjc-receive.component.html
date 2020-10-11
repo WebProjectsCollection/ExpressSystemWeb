@@ -38,7 +38,10 @@
             <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
                 (click)="searchData(true)">查询</button>
             <!-- <button style="margin-left: 20px;" nz-button><i nz-icon nzType="download"></i><span>广州中转确认</span></button> -->
-            <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><i nz-icon nzType="download"></i><span>中转机场确认</span></button>
+            <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><i nz-icon
+                    nzType="download"></i><span>中转机场确认</span></button>
+            <button style="margin-left: 20px;" nz-button (click)="updateByBatchNo()"><i nz-icon
+                    nzType="download"></i><span>中转机场确认[按物流批次]</span></button>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -119,3 +122,7 @@
         </nz-form-item>
     </nz-modal>
 </div>
+<!-- 详情弹窗 -->
+<app-update-by-batch-no *ngIf="updateBatchVisible" [action]="'airportconfirm'" (onCancel)="handleUpdateBatchCancel()"
+    (onConfirm)="handleUpdateBatchConfirm()">
+</app-update-by-batch-no>

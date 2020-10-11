@@ -33,6 +33,8 @@ export class ZZJCReceiveComponent implements OnInit {
   orderinfo: any = {};
   confirmModal: NzModalRef;
 
+  updateBatchVisible: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private httpService: HttpService,
@@ -161,5 +163,18 @@ export class ZZJCReceiveComponent implements OnInit {
       nzContent: "确认这批单已上飞机? 确认后物流信息将同步更新，是否确认?",
       nzOnOk: () => this.airportConfirm(data),
     });
+  }
+
+  updateByBatchNo() {
+    this.updateBatchVisible = true;
+  }
+
+  handleUpdateBatchCancel(): void {
+    this.updateBatchVisible = false;
+  }
+  handleUpdateBatchConfirm(): void {
+    this.updateBatchVisible = false;
+    // 更新列表
+    this.searchData();
   }
 }
