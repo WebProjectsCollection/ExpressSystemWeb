@@ -41,7 +41,7 @@ export class ZZJCReceiveComponent implements OnInit {
     private msg: NzMessageService,
     private lgs: LocalStorageService,
     private modal: NzModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -81,16 +81,13 @@ export class ZZJCReceiveComponent implements OnInit {
   getParams(): string {
     let orderNumber = this.validateForm.get("orderNumber").value;
     let keyWord = this.validateForm.get("keyWord").value;
-    let flightNumber = this.validateForm.get("flightNumber").value;
-    let createTimeSpan = this.validateForm.get("createTimeSpen").value;
     let status = this.validateForm.get("status").value;
+    let batchNo = this.validateForm.get("batchNo").value;
     let params = `pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
-    if (createTimeSpan.length > 0) {
-      params += `&createTimeStartStr=${Utils.dateFormat(createTimeSpan[0])}`;
-      params += `&createTimeEndStr=${Utils.dateFormat(createTimeSpan[1])}`;
-    }
-    params += `&orderNumber=${orderNumber}&keyWord=${keyWord}&flightNumber=${flightNumber}`;
+    params += `&orderNumber=${orderNumber}&keyWord=${keyWord}`;
     params += `&status=${status}`;
+    if (batchNo != null)
+      params += `&batchNo=${batchNo}`;
     return params;
   }
 
@@ -138,7 +135,17 @@ export class ZZJCReceiveComponent implements OnInit {
           Order_Num: t.orderNumber,
         };
       });
+    if (this.checkValid(dicOrders)) {
+      this.msg.warning("请至少勾选一项进行确认");
+      return;
+    }
     this.updatestatus(dicOrders);
+  }
+
+  checkValid(dicOrders: any) {
+    if (dicOrders != null && dicOrders.length > 0)
+      return false;
+    return true;
   }
 
   updatestatus(dicOrders: Array<{ Id: string; Order_Num: string }>) {

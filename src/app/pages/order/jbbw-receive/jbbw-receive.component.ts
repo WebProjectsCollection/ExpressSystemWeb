@@ -20,15 +20,6 @@ export class JbbwReceiveComponent implements OnInit {
   validateForm: FormGroup;
   recordList: any[] = [];
   userName = this.lgs.getObject(LOGIN_KEY).userName;
-  statusOptions: Array<{ label: string; value: string }> = [
-    { value: "1001", label: "已下单" },
-    { value: "1011", label: "已揽件" },
-    { value: "1012", label: "已发货/运送中" },
-    { value: "1013", label: "到津待派送" },
-    { value: "1014", label: "派送中" },
-    { value: "1021", label: "已签收" },
-    { value: "1031", label: "已丢失" },
-  ];
 
   batchNoOptions: Array<{ label: string; value: string }> = [];
   isAllDataChecked = false;
@@ -48,7 +39,7 @@ export class JbbwReceiveComponent implements OnInit {
     private msg: NzMessageService,
     private lgs: LocalStorageService,
     private modal: NzModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -88,16 +79,13 @@ export class JbbwReceiveComponent implements OnInit {
   getParams(): string {
     let orderNumber = this.validateForm.get("orderNumber").value;
     let keyWord = this.validateForm.get("keyWord").value;
-    let flightNumber = this.validateForm.get("flightNumber").value;
-    let createTimeSpan = this.validateForm.get("createTimeSpen").value;
     let status = this.validateForm.get("status").value;
+    let batchNo = this.validateForm.get("batchNo").value;
     let params = `pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
-    if (createTimeSpan.length > 0) {
-      params += `&createTimeStartStr=${Utils.dateFormat(createTimeSpan[0])}`;
-      params += `&createTimeEndStr=${Utils.dateFormat(createTimeSpan[1])}`;
-    }
-    params += `&orderNumber=${orderNumber}&keyWord=${keyWord}&flightNumber=${flightNumber}`;
+    params += `&orderNumber=${orderNumber}&keyWord=${keyWord}`;
     params += `&status=${status}`;
+    if (batchNo != null)
+      params += `&batchNo=${batchNo}`;
     return params;
   }
 
@@ -145,9 +133,18 @@ export class JbbwReceiveComponent implements OnInit {
           Order_Num: t.orderNumber,
         };
       });
+    if (this.checkValid(dicOrders)) {
+      this.msg.warning("请至少勾选一项进行确认");
+      return;
+    }
     this.updatestatus(dicOrders);
   }
 
+  checkValid(dicOrders: any) {
+    if (dicOrders != null && dicOrders.length > 0)
+      return false;
+    return true;
+  }
   updatestatus(dicOrders: Array<{ Id: string; Order_Num: string }>) {
     var params = {
       dicOrders: dicOrders,
