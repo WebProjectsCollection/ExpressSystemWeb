@@ -39,9 +39,9 @@ export class InputOrderComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       orderNumber: [null, [Validators.required]],
-      jbbwName: [null, [Validators.required]],
-      jbbwPhone: [null, [Validators.required]],
       jbbwAddress: [null, [Validators.required]],
+      jbbwName: [null],
+      jbbwPhone: [null],
       senderName: [null],
       senderPhone: [null],
       senderAddress: [null],

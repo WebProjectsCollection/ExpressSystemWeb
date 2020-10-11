@@ -11,7 +11,7 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const baseUrl = environment.apiurl;//"http://open.app-dev.corp.jabil.org/uniform"; 
+const baseUrl = environment.apiurl;
 
 /**
  * http服务

@@ -77,6 +77,7 @@ export class GuangzhouReceiveComponent implements OnInit {
     let keyWord = this.queryForm.get("keyWord").value;
     let flightNumber = this.queryForm.get("flightNumber").value;
     let createTimeSpan = this.queryForm.get("createTimeSpen").value;
+    let batchNo = this.queryForm.get("batchNo").value;
     let status = this.queryForm.get("status").value;
     let params = `pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`;
     if (createTimeSpan.length > 0) {
@@ -84,7 +85,7 @@ export class GuangzhouReceiveComponent implements OnInit {
       params += `&createTimeEndStr=${Utils.dateFormat(createTimeSpan[1])}`;
     }
     params += `&orderNumber=${orderNumber}&keyWord=${keyWord}&flightNumber=${flightNumber}`;
-    params += `&status=${status}`;
+    params += `&status=${status}&batchNo=${batchNo}`;
     return params;
   }
 
