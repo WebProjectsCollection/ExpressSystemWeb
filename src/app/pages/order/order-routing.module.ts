@@ -6,6 +6,8 @@ import { JbbwReceiveComponent } from "./jbbw-receive/jbbw-receive.component";
 import { OrderListComponent } from "./order-list/order-list.component";
 import { OrderComponent } from "./order.component";
 import { PackageOrderComponent } from "./package-order/package-order.component";
+import { ZZJCReceiveComponent } from "./zzjc-receive/zzjc-receive.component";
+import { QGReceiveComponent } from "./qg-receive/qg-receive.component";
 
 const routes: Routes = [
   {
@@ -17,6 +19,8 @@ const routes: Routes = [
       { path: "packateorder", component: PackageOrderComponent },
       { path: "jbbwreceive", component: JbbwReceiveComponent },
       { path: "gzreceive", component: GuangzhouReceiveComponent },
+      { path: "zzjcreceive", component: ZZJCReceiveComponent },
+      { path: "qgreceive", component: QGReceiveComponent },
     ],
   },
 ];

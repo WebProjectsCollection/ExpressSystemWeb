@@ -25,9 +25,12 @@ import { PackageOrderComponent } from './package-order/package-order.component';
 import { JbbwReceiveComponent } from './jbbw-receive/jbbw-receive.component';
 import { GuangzhouReceiveComponent } from './guangzhou-receive/guangzhou-receive.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ZZJCReceiveComponent } from "./zzjc-receive/zzjc-receive.component";
+import { QGReceiveComponent } from "./qg-receive/qg-receive.component";
 
 @NgModule({
-  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent],
+  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent,
+    JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ZZJCReceiveComponent, QGReceiveComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
@@ -48,4 +51,4 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     NzCheckboxModule,
   ],
 })
-export class OrderModule {}
+export class OrderModule { }
