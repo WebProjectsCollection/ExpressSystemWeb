@@ -27,9 +27,12 @@ import { JbbwReceiveComponent } from './jbbw-receive/jbbw-receive.component';
 import { GuangzhouReceiveComponent } from './guangzhou-receive/guangzhou-receive.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ImportOrderComponent } from './import-order/import-order.component';
+import { ZZJCReceiveComponent } from "./zzjc-receive/zzjc-receive.component";
+import { QGReceiveComponent } from "./qg-receive/qg-receive.component";
 
 @NgModule({
-  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ImportOrderComponent],
+  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent,
+    JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ZZJCReceiveComponent, QGReceiveComponent, ImportOrderComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,

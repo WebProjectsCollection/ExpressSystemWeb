@@ -12,23 +12,14 @@ import { LocalStorageService } from "src/app/public/storage/local-storage.servic
 import { Utils } from "src/app/public/util/utils";
 
 @Component({
-  selector: "app-jbbw-receive",
-  templateUrl: "./jbbw-receive.component.html",
-  styleUrls: ["./jbbw-receive.component.css"],
+  selector: "app-zzjc-receive",
+  templateUrl: "./zzjc-receive.component.html",
+  styleUrls: ["./zzjc-receive.component.css"],
 })
-export class JbbwReceiveComponent implements OnInit {
+export class ZZJCReceiveComponent implements OnInit {
   validateForm: FormGroup;
   recordList: any[] = [];
   userName = this.lgs.getObject(LOGIN_KEY).userName;
-  statusOptions: Array<{ label: string; value: string }> = [
-    { value: "1001", label: "已下单" },
-    { value: "1011", label: "已揽件" },
-    { value: "1012", label: "已发货/运送中" },
-    { value: "1013", label: "到津待派送" },
-    { value: "1014", label: "派送中" },
-    { value: "1021", label: "已签收" },
-    { value: "1031", label: "已丢失" },
-  ];
 
   batchNoOptions: Array<{ label: string; value: string }> = [];
   isAllDataChecked = false;
@@ -53,7 +44,7 @@ export class JbbwReceiveComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       orderNumber: [""],
-      status: ["1012"],
+      status: ["1011"],
       batchNo: [""],
       keyWord: [""],
       flightNumber: [""],
@@ -152,7 +143,7 @@ export class JbbwReceiveComponent implements OnInit {
     var params = {
       dicOrders: dicOrders,
       userName: this.lgs.getObject(LOGIN_KEY).userName,
-      status: "1013",
+      status: "1012",
     };
     this.httpService.post("/api/order/updatestatus", params, (res) => {
       if (res.code == 100) {
