@@ -38,6 +38,7 @@
             <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
                 (click)="searchData(true)">查询</button>
             <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><span>清关确认</span></button>
+            <button style="margin-left: 20px;" nz-button (click)="updateByBatchNo()"><span>清关确认[按物流批次]</span></button>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -116,3 +117,7 @@
         </nz-form-item>
     </nz-modal>
 </div>
+<!-- 按批次号更新弹窗 -->
+<app-update-by-batch-no *ngIf="updateBatchVisible" [action]="'qingguanconfirm'" (onCancel)="handleUpdateBatchCancel()"
+    (onConfirm)="handleUpdateBatchConfirm()">
+</app-update-by-batch-no>
