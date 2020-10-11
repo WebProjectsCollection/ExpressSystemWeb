@@ -1,0 +1,12 @@
+<nz-modal [(nzVisible)]="detailVisible" nzTitle="按物流批次更新状态" nzCancelText="取消" nzOkText="确认更新"
+    (nzOnCancel)="handleCancel()" (nzOnOk)="showConfirm()">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="batchNo">物流批次</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入物流批次!">
+            <nz-select [nzMaxMultipleCount]="1" [(ngModel)]="batchNo" style="width: 100%;">
+                <nz-option *ngFor="let item of batchNoOptions" [nzLabel]="item.label" [nzValue]="item.value">
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</nz-modal>
