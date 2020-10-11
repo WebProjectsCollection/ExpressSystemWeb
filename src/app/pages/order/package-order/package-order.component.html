@@ -12,7 +12,7 @@
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="batchNo">发货批次</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="请输入发货批次!">
             <nz-select [nzMaxMultipleCount]="1" nzMode="tags" formControlName="batchNo"
-                nzPlaceHolder="可以是广州包裹号或者发货批次号(如:'20200917批次一')">
+                nzPlaceHolder="可以是广州包裹号或者物流批次(如:'20200917批次一')">
                 <nz-option *ngFor="let item of batchNoOptions" [nzLabel]="item.label" [nzValue]="item.value">
                 </nz-option>
             </nz-select>

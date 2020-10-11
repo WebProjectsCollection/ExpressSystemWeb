@@ -21,7 +21,7 @@
             <input nz-input placeholder="津巴布韦电话/姓名" formControlName="keyWord" />
         </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
+    <!-- <nz-form-item>
         <nz-form-label>航班号</nz-form-label>
         <nz-form-control>
             <input nz-input formControlName="flightNumber" />
@@ -32,13 +32,14 @@
         <nz-form-control>
             <nz-range-picker formControlName="createTimeSpen"></nz-range-picker>
         </nz-form-control>
-    </nz-form-item>
+    </nz-form-item> -->
     <nz-form-item>
         <nz-form-control>
             <button type="button" nz-button style="margin-left: 20px;" nzType="primary"
                 (click)="searchData(true)">查询</button>
             <!-- <button style="margin-left: 20px;" nz-button><i nz-icon nzType="download"></i><span>广州中转确认</span></button> -->
-            <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><i nz-icon nzType="download"></i><span>清关确认</span></button>
+            <button style="margin-left: 20px;" nz-button (click)="batchConfirm()"><i nz-icon
+                    nzType="download"></i><span>清关确认</span></button>
         </nz-form-control>
     </nz-form-item>
 </form>
@@ -50,11 +51,10 @@
             <tr>
                 <th nzShowCheckbox [(nzChecked)]="isAllDataChecked" (nzCheckedChange)="checkAll($event)"></th>
                 <th>快递单号</th>
+                <th>物流批次</th>
                 <th>津巴布韦电话</th>
                 <th>津巴布韦姓名</th>
                 <th>状态</th>
-                <th>航班号</th>
-                <th>落地时间</th>
                 <th>录单人</th>
                 <th>录单时间</th>
                 <th>操作</th>
@@ -64,11 +64,10 @@
             <tr *ngFor="let data of borderedTable.data">
                 <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
                 <td> {{data.orderNumber}}</td>
+                <td> {{data.batchNo}}</td>
                 <td> {{data.jbbwPhone}}</td>
                 <td> {{data.jbbwName}}</td>
-                <td> {{data.status}}</td>
-                <td> {{data.flightNumber}}</td>
-                <td> {{data.landingTime}}</td>
+                <td> {{data.statusStr}}</td>
                 <td> {{data.createdBy}}</td>
                 <td> {{data.createTime}}</td>
                 <td>
@@ -83,7 +82,7 @@
         <nz-form-item>
             <nz-form-label>快递单号</nz-form-label> {{orderinfo.orderNumber}}
             <br>
-            <nz-form-label> 发货批次号 </nz-form-label> {{orderinfo.batchNo }}
+            <nz-form-label> 物流批次 </nz-form-label> {{orderinfo.batchNo }}
             <br>
             <nz-form-label> 重量 </nz-form-label> {{orderinfo.weight }}
             <br>
