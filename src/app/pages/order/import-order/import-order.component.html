@@ -1,0 +1,41 @@
+<form nz-form nzLayout="inline">
+    <nz-form-item>
+        <button nz-button style="margin-bottom: 20px;" (click)="downloadTemplate()" nzType="link"><i nz-icon
+                nzType="download"></i>点击下载 [ 快递单导入模板.xlsx ]</button>
+        <nz-upload [nzShowUploadList]="false" [nzAction]="uploadApi" nzName="file" (nzChange)="handleChange($event)"
+            nzAccept=".xls,.xlsx">
+            <button nz-button><i nz-icon nzType="upload"></i><span>点击上传</span></button>
+        </nz-upload>
+    </nz-form-item>
+</form>
+<div class="search-result-list">
+    <nz-table #borderedTable nzBordered [nzData]="resultList" [nzFrontPagination]="false">
+        <thead>
+            <tr>
+                <th>导入结果</th>
+                <th>快递单号</th>
+                <th>津巴布韦电话</th>
+                <th>津巴布韦地址</th>
+                <th>津巴布韦姓名</th>
+                <th>寄件人姓名</th>
+                <th>寄件人电话</th>
+                <th>寄件人地址</th>
+                <th>包裹批次</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of borderedTable.data">
+                <td *ngIf="data.status === '导入成功'" style="color:green"> {{data.status}}</td>
+                <td *ngIf="data.status != '导入成功'" style="color:red"> {{data.status}}</td>
+                <td> {{data.orderNumber}}</td>
+                <td> {{data.jbbwPhone}}</td>
+                <td> {{data.jbbwAddress}}</td>
+                <td> {{data.jbbwName}}</td>
+                <td> {{data.senderName}}</td>
+                <td> {{data.senderPhone}}</td>
+                <td> {{data.senderAddress}}</td>
+                <td> {{data.BatchNo}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

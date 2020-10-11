@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { GuangzhouReceiveComponent } from "./guangzhou-receive/guangzhou-receive.component";
+import { ImportOrderComponent } from './import-order/import-order.component';
 import { InputOrderComponent } from "./input-order/input-order.component";
 import { JbbwReceiveComponent } from "./jbbw-receive/jbbw-receive.component";
 import { OrderListComponent } from "./order-list/order-list.component";
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: "packateorder", component: PackageOrderComponent },
       { path: "jbbwreceive", component: JbbwReceiveComponent },
       { path: "gzreceive", component: GuangzhouReceiveComponent },
+      { path: "importorder", component: ImportOrderComponent },
     ],
   },
 ];

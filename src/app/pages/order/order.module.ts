@@ -20,14 +20,16 @@ import {
   NzCheckboxModule,
   NzTimePickerModule,
   NzDatePickerModule,
+  NzUploadModule,
 } from "ng-zorro-antd";
 import { PackageOrderComponent } from './package-order/package-order.component';
 import { JbbwReceiveComponent } from './jbbw-receive/jbbw-receive.component';
 import { GuangzhouReceiveComponent } from './guangzhou-receive/guangzhou-receive.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { ImportOrderComponent } from './import-order/import-order.component';
 
 @NgModule({
-  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent],
+  declarations: [OrderComponent, OrderListComponent, InputOrderComponent, PackageOrderComponent, JbbwReceiveComponent, GuangzhouReceiveComponent, OrderDetailComponent, ImportOrderComponent],
   imports: [
     CommonModule,
     OrderRoutingModule,
@@ -46,6 +48,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     NzTimePickerModule,
     NzDatePickerModule,
     NzCheckboxModule,
+    NzUploadModule,
   ],
 })
 export class OrderModule {}
